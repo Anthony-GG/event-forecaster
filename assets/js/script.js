@@ -1,4 +1,4 @@
-var forecast_image = document.getElementById("#forecast-image")
+var forecast_image = document.getElementById("forecast-img")
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
@@ -16,5 +16,6 @@ async function getInfo(file) {
     let img = new Image();
     img.src = icon_link;
     console.log(img);
+    console.log(forecast_image)
     forecast_image.appendChild(img);
 }
