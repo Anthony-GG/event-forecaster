@@ -26,7 +26,8 @@ async function getInfo(file) {
     var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     let weatherIcon = new Image();
     weatherIcon.src = icon_link;
-    forecast_image.appendChild(weatherIcon);
+    weatherIcon.style.width = "200px";
+    //forecast_image.appendChild(weatherIcon);
 
     //This section will add the weather information under the icon
     let weatherStatus = document.createElement("h2");
@@ -35,6 +36,7 @@ async function getInfo(file) {
     weatherStatus.style.fontWeight = "bold";
     weatherStatus.style.fontSize = "28px";
     forecast_image.append(weatherStatus);
+    weatherStatus.after(weatherIcon);
 
     //START OF THE SECOND BOX
     //This section will add the weather temperature 
