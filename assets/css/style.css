@@ -12,8 +12,10 @@ body {
 }
 
 header {
-    background-color: var(--color1);
-    max-height: 25%;
+    background-color: var(--color4);
+    height: 8%;
+    color: white;
+    
 }
 
 footer {
