@@ -27,7 +27,6 @@ async function getInfo(file) {
     let weatherIcon = new Image();
     weatherIcon.src = icon_link;
     weatherIcon.style.width = "200px";
-    //forecast_image.appendChild(weatherIcon);
 
     //This section will add the weather information under the icon
     let weatherStatus = document.createElement("h2");
