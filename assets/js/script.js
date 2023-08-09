@@ -5,6 +5,9 @@ const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
 getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&APPID=6ddb7b9eda44e747c0962325870a6579")
 
+ //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PARAMETERS: the OpenWeather API link with the specific city needed
+//RETURNS: NONE
 async function getInfo(file) {
     var myObject = await fetch(file);
     console.log(myObject);
@@ -12,10 +15,15 @@ async function getInfo(file) {
     var weather_data = JSON.parse(myText);
     console.log(weather_data);
 
+    //This section will create an icon link, create the icon, and then append it on the page in place
     var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
-    let img = new Image();
-    img.src = icon_link;
-    console.log(img);
+    let weatherIcon = new Image();
+    weatherIcon.src = icon_link;
+    console.log(weatherIcon);
     console.log(forecast_image)
-    forecast_image.appendChild(img);
+    forecast_image.appendChild(weatherIcon);
+
+    //This section will add the weather information under the icon
+    let weatherStatus = document.createElement("h2");
+
 }
