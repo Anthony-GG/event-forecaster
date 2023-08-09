@@ -1,5 +1,5 @@
 //This is the DOM selector for the first box
-var forecast_image = document.getElementById("forecast-img")
+var forecast_image = document.getElementById("forecast-top")
 //These are the DOM selectors for the second box
 var forecast_temp = document.getElementById("forecast-temp")
 var forecast_humid = document.getElementById("forecast-humidity")
