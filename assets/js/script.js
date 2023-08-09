@@ -26,15 +26,11 @@ async function getInfo(file) {
     var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     let weatherIcon = new Image();
     weatherIcon.src = icon_link;
-    weatherIcon.style.margin = "0px 10px";
-    console.log(weatherIcon);
-    console.log(forecast_image)
     forecast_image.appendChild(weatherIcon);
 
     //This section will add the weather information under the icon
     let weatherStatus = document.createElement("h2");
     weatherStatus.textContent = weather_data.weather[0].main;
-    console.log(weatherStatus);
     weatherStatus.style.textAlign = "center";
     weatherStatus.style.fontWeight = "bold";
     weatherStatus.style.fontSize = "28px";
@@ -46,6 +42,7 @@ async function getInfo(file) {
     weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
     weatherTemp.style.textAlign = "center";
     weatherTemp.style.fontWeight = "bold";
+    forecast_temp.style.textAlign = "center";
     forecast_temp.append(weatherTemp);
 
     //This section will add the weather humidity 
@@ -53,6 +50,8 @@ async function getInfo(file) {
     weatherHumid.textContent = Math.round(weather_data.main.humidity) + "%";
     weatherHumid.style.textAlign = "center";
     weatherHumid.style.fontWeight = "bold";
+    forecast_humid.style.textAlign = "center";
+    forecast_humid.style.margin = "25px 0px 25px 0px";
     forecast_humid.append(weatherHumid);
 
     //This section will add the weather wind speed 
@@ -60,6 +59,6 @@ async function getInfo(file) {
     weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
     weatherWind.style.textAlign = "center";
     weatherWind.style.fontWeight = "bold";
+    forecast_wind.style.textAlign = "center";
     forecast_wind.append(weatherWind);
-
 }
