@@ -1,0 +1,71 @@
+:root {
+    --color1: #F2EE9D;
+    --color2: #7A9D54;
+    --color3: #557A46;
+    --color4: #8C3333;
+}
+
+body {
+    background-color: var(--color1);
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    background-color: var(--color1);
+    max-height: 25%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+ul {
+    height: 100%;
+}
+
+li {
+    height: 20%;
+}
+
+.header-content {
+    background-color: var(--color3);
+    height: 100%;
+    margin: 0px 20px;
+    color: white;
+}
+
+.logo {
+    height: 148px;
+}
+
+.main-content {
+    background-color: var(--color2);
+    height: 550px;
+    margin: 0px 20px
+}
+
+.label {
+    color: white;
+}
+
+#override-footer {
+    background-color: var(--color4);
+    color: white;
+    padding: 1.5rem;
+}
+
+#override-header {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+#main-body {
+    padding-top: 0.5rem;
+}
+
+#forecast-img {
+    height: 240px;
+}

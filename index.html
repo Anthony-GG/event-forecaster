@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header class="header section columns">
-        <section class="logo box column is-one-quarter">
+    <header class="header section columns" id="override-header">
+        <section class="header-content logo box column is-one-quarter">
             <p>Yeah, yeah. Placeholder</p>
         </section>
-        <section class="search-field box column">
+        <section class="header-content search-field box column">
             <div>
                 <div class="field">
                   <label class="label">City</label>
@@ -25,28 +25,46 @@
         </section>
     </header>
 
-    <main class="main-body section columns">
-        <section class="events box column">
-            <ul class="events-list">
-                <li>Hi</li>
-            </ul>
-        </section>
-        <section class="forecast box column is-one-quarter">
-            <div>
-                <p>Hi</p>
-            </div>
-        </section>
+    <main class="main-body section columns" id="main-body">
+        <div class="column">
+            <h2>Events List</h2>
+            <section class="main-content events box">
+                    <ul class="events-list">
+                        <li class="box column">
+                            <h1>Event Name:</h1>
+                            <p>Placeholder Information</p>
+                            <p>this is probably an image or smth idk</p>
+                        </li>
+                        <li class="box">Hi</li>
+                        <li class="box">Hi</li>
+                        <li class="box">Hi</li>
+                    </ul>
+            </section>
+        </div>
+        <div class="column is-one-quarter">
+            <h2>Forecast</h2>
+            <section class="main-content forecast box">
+                    <ul>
+                        <li class="box" id="forecast-img">Image of the Sun or smth</li>
+                        <li class="box" id="forecast-img">
+                            <p>Temperature:</p>
+                            <p>Humidity:</p>
+                            <p>Wind Speed:</p>
+                            <p>Other Buzzwords:</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="override-footer">
         <div class="content has-text-centered">
           <p>
-            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            This is the Footer
           </p>
         </div>
-      </footer>
+    </footer>
 
     <script src="./assets/js/script.js"></script>
 </body>
