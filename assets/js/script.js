@@ -1,9 +1,15 @@
+//This is the DOM selector for the first box
 var forecast_image = document.getElementById("forecast-img")
+//These are the DOM selectors for the second box
+var forecast_temp = document.getElementById("forecast-temp")
+var forecast_humid = document.getElementById("forecast-humidity")
+var forecast_wind = document.getElementById("forecast-wind")
+var forecast_buzz = document.getElementById("forecast-buzz")
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
-getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&APPID=6ddb7b9eda44e747c0962325870a6579")
+getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579")
 
  //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: the OpenWeather API link with the specific city needed
@@ -15,6 +21,7 @@ async function getInfo(file) {
     var weather_data = JSON.parse(myText);
     console.log(weather_data);
 
+    //START OF THE FIRST BOX
     //This section will create an icon link, create the icon, and then append it on the page in place
     var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     let weatherIcon = new Image();
@@ -32,5 +39,14 @@ async function getInfo(file) {
     weatherStatus.style.fontWeight = "bold";
     weatherStatus.style.fontSize = "28px";
     forecast_image.append(weatherStatus);
+
+    //START OF THE SECOND BOX
+    //This section will add the weather temperature 
+    let weatherTemp = document.createElement("h2");
+    weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
+    console.log(weatherTemp);
+    weatherTemp.style.textAlign = "center";
+    weatherTemp.style.fontWeight = "bold";
+    forecast_temp.append(weatherTemp);
 
 }
