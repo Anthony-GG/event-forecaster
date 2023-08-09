@@ -19,11 +19,18 @@ async function getInfo(file) {
     var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     let weatherIcon = new Image();
     weatherIcon.src = icon_link;
+    weatherIcon.style.margin = "0px 10px";
     console.log(weatherIcon);
     console.log(forecast_image)
     forecast_image.appendChild(weatherIcon);
 
     //This section will add the weather information under the icon
     let weatherStatus = document.createElement("h2");
+    weatherStatus.textContent = weather_data.weather[0].main;
+    console.log(weatherStatus);
+    weatherStatus.style.textAlign = "center";
+    weatherStatus.style.fontWeight = "bold";
+    weatherStatus.style.fontSize = "28px";
+    forecast_image.append(weatherStatus);
 
 }
