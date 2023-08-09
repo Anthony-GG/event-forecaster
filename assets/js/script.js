@@ -44,9 +44,22 @@ async function getInfo(file) {
     //This section will add the weather temperature 
     let weatherTemp = document.createElement("h2");
     weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
-    console.log(weatherTemp);
     weatherTemp.style.textAlign = "center";
     weatherTemp.style.fontWeight = "bold";
     forecast_temp.append(weatherTemp);
+
+    //This section will add the weather humidity 
+    let weatherHumid = document.createElement("h2");
+    weatherHumid.textContent = Math.round(weather_data.main.humidity) + "%";
+    weatherHumid.style.textAlign = "center";
+    weatherHumid.style.fontWeight = "bold";
+    forecast_humid.append(weatherHumid);
+
+    //This section will add the weather wind speed 
+    let weatherWind = document.createElement("h2");
+    weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
+    weatherWind.style.textAlign = "center";
+    weatherWind.style.fontWeight = "bold";
+    forecast_wind.append(weatherWind);
 
 }
