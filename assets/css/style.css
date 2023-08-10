@@ -6,14 +6,18 @@
 }
 
 body {
+    font-family: 'Press Start 2P', cursive;
     background-color: var(--color1);
     height: 100vh;
     width: 100vw;
 }
 
 header {
-    background-color: var(--color1);
-    max-height: 25%;
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--color4);
+    height: 8%;
+    color: white;
+    
 }
 
 footer {
