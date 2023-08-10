@@ -6,6 +6,7 @@ var forecast_humid = document.getElementById("forecast-humidity")
 var forecast_wind = document.getElementById("forecast-wind")
 var forecast_buzz = document.getElementById("forecast-buzz")
 
+var currentDate = dayjs()
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
