@@ -70,6 +70,7 @@ li {
     padding-top: 0.5rem;
 }
 
-#forecast-img {
+.forecast-img {
     height: 240px;
+    text-align: center;
 }
