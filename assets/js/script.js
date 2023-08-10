@@ -10,15 +10,19 @@ var currentDate = dayjs()
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
-getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579")
 
- //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
-//PARAMETERS: the OpenWeather API link with the specific city needed
+
+getInfo("Cleveland");
+
+//PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PARAMETERS: city: a string which is name of city, date: a string, date weather request
 //RETURNS: NONE
-async function getInfo(file) {
-    var myObject = await fetch(file);
-    console.log(myObject);
-    var myText = await myObject.text();
+async function getInfo(city) {
+
+    var weatherAPICall = "http://api.openweathermap.org/data/2.5/weather?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+
+    var data = await fetch(weatherAPICall);
+    var myText = await data.text();
     var weather_data = JSON.parse(myText);
     console.log(weather_data);
 
