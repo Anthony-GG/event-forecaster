@@ -6,11 +6,41 @@ var forecast_humid = document.getElementById("forecast-humidity")
 var forecast_wind = document.getElementById("forecast-wind")
 var forecast_buzz = document.getElementById("forecast-buzz")
 
-var currentDate = dayjs()
+var currentDate = dayjs();
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
 getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579")
+
+
+
+$('input[name="dates"]').daterangepicker();
+
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
 
  //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: the OpenWeather API link with the specific city needed
