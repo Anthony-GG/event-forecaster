@@ -84,10 +84,11 @@ async function getInfo(city, date) {
 
         //Loops through all 5 days and adds the data to the screen for each, time for each day is approx. 5pm EST
         var daysWeather = [];
-        var listNum = 7;
+        var listNum = 5;
+        var requestedDate = date;
         for(var i = 0; i<5; i++){
             //Date for Five Day Forecast
-            var dailyWeatherData = weather_data.list[listNum]
+            var dailyWeatherData = weather_data.list[listNum];
             var date = dayjs().add(i+1,'days').format("YYYY-MM-DD");
             var day = [];
             day.push(dailyWeatherData)
@@ -96,6 +97,52 @@ async function getInfo(city, date) {
             listNum+=8;
         }
         console.log(daysWeather);
+
+        daysWeather.forEach((dayArr) => {
+            if(dayArr[1] === requestedDate){
+                //START OF THE FIRST BOX
+                //This section will create an icon link, create the icon, and then append it on the page in place
+                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+                let weatherIcon = new Image();
+                weatherIcon.src = icon_link;
+                weatherIcon.style.width = "200px";
+
+                //This section will add the weather information under the icon
+                let weatherStatus = document.createElement("h2");
+                weatherStatus.textContent = dayArr[0].weather[0].main;
+                weatherStatus.style.textAlign = "center";
+                weatherStatus.style.fontWeight = "bold";
+                weatherStatus.style.fontSize = "28px";
+                forecast_image.append(weatherStatus);
+                weatherStatus.after(weatherIcon);
+
+                //START OF THE SECOND BOX
+                //This section will add the weather temperature 
+                let weatherTemp = document.createElement("h2");
+                weatherTemp.textContent = Math.round(dayArr[0].main.temp) + "\u00B0" + "F";
+                weatherTemp.style.textAlign = "center";
+                weatherTemp.style.fontWeight = "bold";
+                forecast_temp.style.textAlign = "center";
+                forecast_temp.append(weatherTemp);
+
+                //This section will add the weather humidity 
+                let weatherHumid = document.createElement("h2");
+                weatherHumid.textContent = Math.round(dayArr[0].main.humidity) + "%";
+                weatherHumid.style.textAlign = "center";
+                weatherHumid.style.fontWeight = "bold";
+                forecast_humid.style.textAlign = "center";
+                forecast_humid.style.margin = "25px 0px 25px 0px";
+                forecast_humid.append(weatherHumid);
+
+                //This section will add the weather wind speed 
+                let weatherWind = document.createElement("h2");
+                weatherWind.textContent = Math.round(dayArr[0].wind.speed) + " MPH";
+                weatherWind.style.textAlign = "center";
+                weatherWind.style.fontWeight = "bold";
+                forecast_wind.style.textAlign = "center";
+                forecast_wind.append(weatherWind);
+            }
+          });
     }
 
 
