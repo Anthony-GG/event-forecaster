@@ -1,3 +1,66 @@
+// Root URL: https://app.ticketmaster.com/discovery/v2/
+// API Key: ?apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y
+// Event Info: /discovery/v2/events/{id}
+// yyyy-MM-dd'T'HH:mm:ssZ
+// data._embedded.events
+var test = dayjs()
+
+var testBox = document.querySelector('#list-item')
+var eventsList = document.querySelector('#events-list')
+var listArray = $('.list-item')
+var cityInput = $('.input')
+var headerContent = $('.header-content')
+
+var currentDay = dayjs().format('YYYY-MM-DD')
+var currentTime = dayjs().format('HH:mm:ss') + 'Z'
+var dateToday = currentDay + "T" + currentTime
+var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
+
+//var ticketmasterUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
+
+headerContent.on('click', '.button', function() {
+    var cityName = cityInput.val()
+    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
+    
+    cityInput.val('')
+    //h3.textContent = ""
+    //p.textContent = ""
+    //p2.textContent = ""
+
+    console.log(cityName)
+    console.log(dateToday)
+    console.log(dateEnd)
+
+    fetch(ticketmasterUrl)
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(data) {
+            console.log(data)
+
+            //Grabs the list from the webpage and fills it with content from the API
+            for (i = 0; i < listArray.length; i++) {
+                var h3 = eventsList.children[i].children[0]
+                var p = eventsList.children[i].children[1]
+                var p2 = eventsList.children[i].children[2]
+                
+                h3.textContent = "Event - " + data._embedded.events[i].name
+                p.textContent = "Date and Time: " + dayjs(data._embedded.events[i].dates.start.localDate).format('ddd, MMM D') + " at " + dayjs(data._embedded.events[0].dates.start.localDate + "T" + data._embedded.events[0].dates.start.localTime).format('h:mm A')
+                p2.textContent = data._embedded.events[i]._embedded.venues[0].name
+
+                eventsList.children[i].appendChild(h3)
+                eventsList.children[i].appendChild(p)
+                eventsList.children[i].appendChild(p2)
+            }
+        })
+})
+
+// Event Name:
+// Event Date:
+// Event Image:
+
+//START OF OPENWEATHER API
+
 //This is the DOM selector for the first box
 var forecast_image = document.getElementById("forecast-top")
 //These are the DOM selectors for the second box
@@ -6,11 +69,14 @@ var forecast_humid = document.getElementById("forecast-humidity")
 var forecast_wind = document.getElementById("forecast-wind")
 var forecast_buzz = document.getElementById("forecast-buzz")
 
-var currentDate = dayjs();
+var currentDate = dayjs().format("YYYY-MM-DD");
+//Current set to 2023-08-11
+var otherDate = dayjs(new Date(2023, 7, 11)).format("YYYY-MM-DD")
+
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
-getInfo("http://api.openweathermap.org/data/2.5/weather?q=Cleveland,us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579")
+
 
 
 //Function for date range 
@@ -44,53 +110,140 @@ $(function() {
 
  //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: the OpenWeather API link with the specific city needed
+
+console.log(currentDate);
+console.log(otherDate)
+getInfo("Cleveland", otherDate);
+
+//PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PARAMETERS: city: a string which is name of city, date: a string, date weather request
+
 //RETURNS: NONE
-async function getInfo(file) {
-    var myObject = await fetch(file);
-    console.log(myObject);
-    var myText = await myObject.text();
-    var weather_data = JSON.parse(myText);
-    console.log(weather_data);
+async function getInfo(city, date) {
 
-    //START OF THE FIRST BOX
-    //This section will create an icon link, create the icon, and then append it on the page in place
-    var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
-    let weatherIcon = new Image();
-    weatherIcon.src = icon_link;
-    weatherIcon.style.width = "200px";
+    //API LINK FORMATTING
+    var weatherForecastCall = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+    var weatherAPICall = "https://api.openweathermap.org/data/2.5/weather?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
 
-    //This section will add the weather information under the icon
-    let weatherStatus = document.createElement("h2");
-    weatherStatus.textContent = weather_data.weather[0].main;
-    weatherStatus.style.textAlign = "center";
-    weatherStatus.style.fontWeight = "bold";
-    weatherStatus.style.fontSize = "28px";
-    forecast_image.append(weatherStatus);
-    weatherStatus.after(weatherIcon);
+    //IF statement to determine if it is current day, else will run other code
+    if (currentDate === date){
+        var data = await fetch(weatherAPICall);
+        var dataToParse = await data.text();
+        var weather_data = JSON.parse(dataToParse);
 
-    //START OF THE SECOND BOX
-    //This section will add the weather temperature 
-    let weatherTemp = document.createElement("h2");
-    weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
-    weatherTemp.style.textAlign = "center";
-    weatherTemp.style.fontWeight = "bold";
-    forecast_temp.style.textAlign = "center";
-    forecast_temp.append(weatherTemp);
+        //START OF THE FIRST BOX
+        //This section will create an icon link, create the icon, and then append it on the page in place
+        var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
+        let weatherIcon = new Image();
+        weatherIcon.src = icon_link;
+        weatherIcon.style.width = "200px";
 
-    //This section will add the weather humidity 
-    let weatherHumid = document.createElement("h2");
-    weatherHumid.textContent = Math.round(weather_data.main.humidity) + "%";
-    weatherHumid.style.textAlign = "center";
-    weatherHumid.style.fontWeight = "bold";
-    forecast_humid.style.textAlign = "center";
-    forecast_humid.style.margin = "25px 0px 25px 0px";
-    forecast_humid.append(weatherHumid);
+        //This section will add the weather information under the icon
+        let weatherStatus = document.createElement("h2");
+        weatherStatus.textContent = weather_data.weather[0].main;
+        weatherStatus.style.textAlign = "center";
+        weatherStatus.style.fontWeight = "bold";
+        weatherStatus.style.fontSize = "28px";
+        forecast_image.append(weatherStatus);
+        weatherStatus.after(weatherIcon);
 
-    //This section will add the weather wind speed 
-    let weatherWind = document.createElement("h2");
-    weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
-    weatherWind.style.textAlign = "center";
-    weatherWind.style.fontWeight = "bold";
-    forecast_wind.style.textAlign = "center";
-    forecast_wind.append(weatherWind);
+        //START OF THE SECOND BOX
+        //This section will add the weather temperature 
+        let weatherTemp = document.createElement("h2");
+        weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
+        weatherTemp.style.textAlign = "center";
+        weatherTemp.style.fontWeight = "bold";
+        forecast_temp.style.textAlign = "center";
+        forecast_temp.append(weatherTemp);
+
+        //This section will add the weather humidity 
+        let weatherHumid = document.createElement("h2");
+        weatherHumid.textContent = Math.round(weather_data.main.humidity) + "%";
+        weatherHumid.style.textAlign = "center";
+        weatherHumid.style.fontWeight = "bold";
+        forecast_humid.style.textAlign = "center";
+        forecast_humid.style.margin = "25px 0px 25px 0px";
+        forecast_humid.append(weatherHumid);
+
+        //This section will add the weather wind speed 
+        let weatherWind = document.createElement("h2");
+        weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
+        weatherWind.style.textAlign = "center";
+        weatherWind.style.fontWeight = "bold";
+        forecast_wind.style.textAlign = "center";
+        forecast_wind.append(weatherWind);
+    } else {
+        var data = await fetch(weatherForecastCall);
+        var dataToParse = await data.text();
+        var weather_data = JSON.parse(dataToParse);
+        console.log(weather_data);
+        console.log("This is a different day!");
+
+
+
+        //Loops through all 5 days and adds the data to the screen for each, time for each day is approx. 5pm EST
+        var daysWeather = [];
+        var listNum = 5;
+        var requestedDate = date;
+        for(var i = 0; i<5; i++){
+            //Date for Five Day Forecast
+            var dailyWeatherData = weather_data.list[listNum];
+            var date = dayjs().add(i+1,'days').format("YYYY-MM-DD");
+            var day = [];
+            day.push(dailyWeatherData)
+            day.push(date);
+            daysWeather.push(day)
+            listNum+=8;
+        }
+        console.log(daysWeather);
+
+        daysWeather.forEach((dayArr) => {
+            if(dayArr[1] === requestedDate){
+                //START OF THE FIRST BOX
+                //This section will create an icon link, create the icon, and then append it on the page in place
+                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+                let weatherIcon = new Image();
+                weatherIcon.src = icon_link;
+                weatherIcon.style.width = "200px";
+
+                //This section will add the weather information under the icon
+                let weatherStatus = document.createElement("h2");
+                weatherStatus.textContent = dayArr[0].weather[0].main;
+                weatherStatus.style.textAlign = "center";
+                weatherStatus.style.fontWeight = "bold";
+                weatherStatus.style.fontSize = "28px";
+                forecast_image.append(weatherStatus);
+                weatherStatus.after(weatherIcon);
+
+                //START OF THE SECOND BOX
+                //This section will add the weather temperature 
+                let weatherTemp = document.createElement("h2");
+                weatherTemp.textContent = Math.round(dayArr[0].main.temp) + "\u00B0" + "F";
+                weatherTemp.style.textAlign = "center";
+                weatherTemp.style.fontWeight = "bold";
+                forecast_temp.style.textAlign = "center";
+                forecast_temp.append(weatherTemp);
+
+                //This section will add the weather humidity 
+                let weatherHumid = document.createElement("h2");
+                weatherHumid.textContent = Math.round(dayArr[0].main.humidity) + "%";
+                weatherHumid.style.textAlign = "center";
+                weatherHumid.style.fontWeight = "bold";
+                forecast_humid.style.textAlign = "center";
+                forecast_humid.style.margin = "25px 0px 25px 0px";
+                forecast_humid.append(weatherHumid);
+
+                //This section will add the weather wind speed 
+                let weatherWind = document.createElement("h2");
+                weatherWind.textContent = Math.round(dayArr[0].wind.speed) + " MPH";
+                weatherWind.style.textAlign = "center";
+                weatherWind.style.fontWeight = "bold";
+                forecast_wind.style.textAlign = "center";
+                forecast_wind.append(weatherWind);
+            }
+          });
+    }
+
+
 }
+
