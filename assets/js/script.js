@@ -23,13 +23,19 @@ headerContent.on('click', '.button', function() {
     var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
-    //h3.textContent = ""
-    //p.textContent = ""
-    //p2.textContent = ""
+
+    var weatherBoxes = $('.forecast-img')
+    //Empties top of forecast
+    $("#forecast-top").empty()
 
     console.log(cityName)
     console.log(dateToday)
     console.log(dateEnd)
+
+    //Weather API request - START OF WEATHER API CALL
+    console.log(currentDate);
+    console.log(otherDate)
+    getWeatherInfo(cityName, otherDate);
 
     fetch(ticketmasterUrl)
         .then(function(response) {
@@ -45,7 +51,7 @@ headerContent.on('click', '.button', function() {
                 var p2 = eventsList.children[i].children[2]
                 
                 h3.textContent = "Event - " + data._embedded.events[i].name
-                p.textContent = "Date and Time: " + dayjs(data._embedded.events[i].dates.start.localDate).format('ddd, MMM D') + " at " + dayjs(data._embedded.events[0].dates.start.localDate + "T" + data._embedded.events[0].dates.start.localTime).format('h:mm A')
+                p.textContent = "Date and Time: " + dayjs(data._embedded.events[i].dates.start.localDate).format('ddd, MMM D') + " at " + dayjs(data._embedded.events[i].dates.start.localDate + "T" + data._embedded.events[i].dates.start.localTime).format('h:mm A')
                 p2.textContent = data._embedded.events[i]._embedded.venues[0].name
 
                 eventsList.children[i].appendChild(h3)
@@ -59,15 +65,48 @@ headerContent.on('click', '.button', function() {
 // Event Date:
 // Event Image:
 
+
+
+
+
+
+// //Function for date range 
+// $('input[name="dates"]').daterangepicker();
+
+// $(function() {
+
+//     var start = moment().subtract(29, 'days');
+//     var end = moment();
+
+//     function cb(start, end) {
+//         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+//     }
+
+//     $('#reportrange').daterangepicker({
+//         startDate: start,
+//         endDate: end,
+//         ranges: {
+//            'Today': [moment(), moment()],
+//            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+//            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+//            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+//            'This Month': [moment().startOf('month'), moment().endOf('month')],
+//            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+//         }
+//     }, cb);
+
+//     cb(start, end);
+
+// });
+
 //START OF OPENWEATHER API
 
 //This is the DOM selector for the first box
 var forecast_image = document.getElementById("forecast-top")
 //These are the DOM selectors for the second box
-var forecast_temp = document.getElementById("forecast-temp")
-var forecast_humid = document.getElementById("forecast-humidity")
-var forecast_wind = document.getElementById("forecast-wind")
-var forecast_buzz = document.getElementById("forecast-buzz")
+var weatherTemp = document.getElementById("forecast-temp-input")
+var weatherHumid = document.getElementById("forecast-humidity-input")
+var weatherWind = document.getElementById("forecast-wind-input")
 
 var currentDate = dayjs().format("YYYY-MM-DD");
 //Current set to 2023-08-11
@@ -77,49 +116,18 @@ var otherDate = dayjs(new Date(2023, 7, 11)).format("YYYY-MM-DD")
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
 
-
-
-//Function for date range 
-$('input[name="dates"]').daterangepicker();
-
-$(function() {
-
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-
-    cb(start, end);
-
-});
-
- //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: the OpenWeather API link with the specific city needed
 
-console.log(currentDate);
-console.log(otherDate)
-getInfo("Cleveland", otherDate);
+// console.log(currentDate);
+// console.log(otherDate)
+// getWeatherInfo("Cleveland", currentDate);
+
 
 //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
-
 //RETURNS: NONE
-async function getInfo(city, date) {
+async function getWeatherInfo(city, date) {
 
     //API LINK FORMATTING
     var weatherForecastCall = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
@@ -149,29 +157,19 @@ async function getInfo(city, date) {
 
         //START OF THE SECOND BOX
         //This section will add the weather temperature 
-        let weatherTemp = document.createElement("h2");
         weatherTemp.textContent = Math.round(weather_data.main.temp) + "\u00B0" + "F";
         weatherTemp.style.textAlign = "center";
         weatherTemp.style.fontWeight = "bold";
-        forecast_temp.style.textAlign = "center";
-        forecast_temp.append(weatherTemp);
 
-        //This section will add the weather humidity 
-        let weatherHumid = document.createElement("h2");
+        //This section will add the weather humidity
         weatherHumid.textContent = Math.round(weather_data.main.humidity) + "%";
         weatherHumid.style.textAlign = "center";
         weatherHumid.style.fontWeight = "bold";
-        forecast_humid.style.textAlign = "center";
-        forecast_humid.style.margin = "25px 0px 25px 0px";
-        forecast_humid.append(weatherHumid);
 
         //This section will add the weather wind speed 
-        let weatherWind = document.createElement("h2");
         weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
         weatherWind.style.textAlign = "center";
         weatherWind.style.fontWeight = "bold";
-        forecast_wind.style.textAlign = "center";
-        forecast_wind.append(weatherWind);
     } else {
         var data = await fetch(weatherForecastCall);
         var dataToParse = await data.text();
@@ -217,29 +215,19 @@ async function getInfo(city, date) {
 
                 //START OF THE SECOND BOX
                 //This section will add the weather temperature 
-                let weatherTemp = document.createElement("h2");
                 weatherTemp.textContent = Math.round(dayArr[0].main.temp) + "\u00B0" + "F";
                 weatherTemp.style.textAlign = "center";
                 weatherTemp.style.fontWeight = "bold";
-                forecast_temp.style.textAlign = "center";
-                forecast_temp.append(weatherTemp);
 
                 //This section will add the weather humidity 
-                let weatherHumid = document.createElement("h2");
                 weatherHumid.textContent = Math.round(dayArr[0].main.humidity) + "%";
                 weatherHumid.style.textAlign = "center";
                 weatherHumid.style.fontWeight = "bold";
-                forecast_humid.style.textAlign = "center";
-                forecast_humid.style.margin = "25px 0px 25px 0px";
-                forecast_humid.append(weatherHumid);
 
                 //This section will add the weather wind speed 
-                let weatherWind = document.createElement("h2");
                 weatherWind.textContent = Math.round(dayArr[0].wind.speed) + " MPH";
                 weatherWind.style.textAlign = "center";
                 weatherWind.style.fontWeight = "bold";
-                forecast_wind.style.textAlign = "center";
-                forecast_wind.append(weatherWind);
             }
           });
     }
