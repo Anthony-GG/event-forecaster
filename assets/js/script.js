@@ -73,8 +73,43 @@ var currentDate = dayjs().format("YYYY-MM-DD");
 //Current set to 2023-08-11
 var otherDate = dayjs(new Date(2023, 7, 11)).format("YYYY-MM-DD")
 
+
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
+
+
+
+//Function for date range 
+$('input[name="dates"]').daterangepicker();
+
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+ //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PARAMETERS: the OpenWeather API link with the specific city needed
 
 console.log(currentDate);
 console.log(otherDate)
@@ -82,6 +117,7 @@ getInfo("Cleveland", otherDate);
 
 //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
+
 //RETURNS: NONE
 async function getInfo(city, date) {
 

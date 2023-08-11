@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="./assets/css/style.css">
+   
 </head>
 
 <body>
@@ -32,7 +34,10 @@
             </div>
         </section>
         <section class="header-content logo box column is-one-fifth">
-            <p>This will be a place for a date picker</p>
+            <div id="reportrange" style="background: #060505; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
         </section>
     </section>
 
@@ -40,6 +45,7 @@
         <div class="column">
             <h2 class="has-text-centered">Events List</h2>
             <section class="main-content events box">
+
                     <ul class="events-list" id="events-list">
                         <li class="box list-item" id="list-item">
                             <h3></h3>
@@ -62,6 +68,21 @@
                             <p></p>
                         </li>
                     </ul>
+                    <nav class="pagination" role="navigation" aria-label="pagination">
+                    <a class="pagination-previous is-disabled" title="This is the first page">Previous</a>
+                    <a class="pagination-next">Next page</a>
+                    <ul class="pagination-list">
+                      <li>
+                        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+                      </li>
+                      <li>
+                        <a class="pagination-link" aria-label="Goto page 2">2</a>
+                      </li>
+                      <li>
+                        <a class="pagination-link" aria-label="Goto page 3">3</a>
+                      </li>
+                    </ul>
+                  </nav>
             </section>
         </div>
         //START OF FORECAST SECTION
@@ -89,13 +110,15 @@
         </div>
     </footer>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
       integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
       crossorigin="anonymous"
     ></script>
+
 
     <script src="./assets/js/script.js"></script>
 </body>
