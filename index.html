@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Event Forecaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-    <header class="has-text-centered is-size-1">
-        <h1>Event Forecaster</h1>
+    <header class="has-text-centered is-size-2">
+        <h1 class="title">Event Forecaster</h1>
     </header>
     <section class="header section columns" id="override-header">
         <section class="header-content logo box column is-one-quarter">
@@ -18,13 +23,16 @@
         <section class="header-content search-field box column">
             <div>
                 <div class="field">
-                  <label class="label">City</label>
-                  <div class="control">
-                    <input class="input" type="name" placeholder="City Name...">
-                  </div>
+                    <label class="label">City</label>
+                    <div class="control">
+                        <input class="input" type="name" placeholder="City Name...">
+                    </div>
                 </div>
-                <button class="button is-primary">Search...</button>
-              </div>
+                <button class="button is-warning is-rounded is-focused">Search</button>
+            </div>
+        </section>
+        <section class="header-content logo box column is-one-fifth">
+            <p>This will be a place for a date picker</p>
         </section>
     </section>
 
@@ -56,16 +64,16 @@
                     </ul>
             </section>
         </div>
+        //START OF FORECAST SECTION
         <div class="column is-one-quarter">
             <h2 class="has-text-centered">Forecast</h2>
-            <section class="main-content forecast box">
+            <section class="main-content forecast box is-flex-grow-6 is-justify-content-center">
                     <ul>
-                        <li class="box" id="forecast-img">Image of the Sun or smth</li>
-                        <li class="box" id="forecast-img">
-                            <p>Temperature:</p>
-                            <p>Humidity:</p>
-                            <p>Wind Speed:</p>
-                            <p>Other Buzzwords:</p>
+                        <li class="box p-4 forecast-img" id = "forecast-top"></li>
+                        <li class="box p-8 forecast-img">
+                            <p id="forecast-temp">Current Temperature:</p>
+                            <p id="forecast-humidity">Humidity:</p>
+                            <p id="forecast-wind">Wind Speed:</p>
                         </li>
                     </ul>
                 </div>
@@ -75,9 +83,9 @@
 
     <footer class="footer" id="override-footer">
         <div class="content has-text-centered">
-          <p>
-            This is the Footer
-          </p>
+            <p>
+                This is the Footer
+            </p>
         </div>
     </footer>
 
@@ -91,4 +99,5 @@
 
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
