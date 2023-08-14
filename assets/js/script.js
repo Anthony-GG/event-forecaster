@@ -10,15 +10,16 @@ var eventsList = document.querySelector('#events-list')
 var listArray = $('.list-item')
 var cityInput = $('.input')
 var headerContent = $('.header-content')
+var weatherDisplayTitle = $('.weather-display-name');
 
 var currentDay = dayjs().format('YYYY-MM-DD')
 var currentTime = dayjs().format('HH:mm:ss') + 'Z'
 var dateToday = currentDay + "T" + currentTime
 var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
-//var ticketmasterUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
-
 headerContent.on('click', '.button', function() {
+
+    $('.weather-display-name').css('display', 'block');
     var cityName = cityInput.val()
     var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
@@ -35,7 +36,7 @@ headerContent.on('click', '.button', function() {
     //Weather API request - START OF WEATHER API CALL
     console.log(currentDate);
     console.log(otherDate)
-    getWeatherInfo(cityName, otherDate);
+    getWeatherInfo(cityName, currentDate);
 
     fetch(ticketmasterUrl)
         .then(function(response) {
@@ -61,44 +62,6 @@ headerContent.on('click', '.button', function() {
         })
 })
 
-// Event Name:
-// Event Date:
-// Event Image:
-
-
-
-
-
-
-// //Function for date range 
-// $('input[name="dates"]').daterangepicker();
-
-// $(function() {
-
-//     var start = moment().subtract(29, 'days');
-//     var end = moment();
-
-//     function cb(start, end) {
-//         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-//     }
-
-//     $('#reportrange').daterangepicker({
-//         startDate: start,
-//         endDate: end,
-//         ranges: {
-//            'Today': [moment(), moment()],
-//            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-//            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-//            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-//            'This Month': [moment().startOf('month'), moment().endOf('month')],
-//            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-//         }
-//     }, cb);
-
-//     cb(start, end);
-
-// });
-
 //START OF OPENWEATHER API
 
 //This is the DOM selector for the first box
@@ -110,19 +73,10 @@ var weatherWind = document.getElementById("forecast-wind-input")
 
 var currentDate = dayjs().format("YYYY-MM-DD");
 //Current set to 2023-08-11
-var otherDate = dayjs(new Date(2023, 7, 11)).format("YYYY-MM-DD")
+var otherDate = dayjs(new Date(2023, 7, 15)).format("YYYY-MM-DD")
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
-
-
-//PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
-//PARAMETERS: the OpenWeather API link with the specific city needed
-
-// console.log(currentDate);
-// console.log(otherDate)
-// getWeatherInfo("Cleveland", currentDate);
-
 
 //PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
