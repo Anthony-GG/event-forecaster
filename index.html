@@ -34,10 +34,6 @@
             </div>
         </section>
         <section class="header-content logo box column is-one-fifth">
-            <div id="reportrange" style="background: #060505; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                <i class="fa fa-calendar"></i>&nbsp;
-                <span></span> <i class="fa fa-caret-down"></i>
-            </div>
         </section>
     </section>
 
@@ -85,16 +81,19 @@
                   </nav>
             </section>
         </div>
-        //START OF FORECAST SECTION
+        <!-- START OF FORECAST SECTION -->
         <div class="column is-one-quarter">
             <h2 class="has-text-centered">Forecast</h2>
             <section class="main-content forecast box is-flex-grow-6 is-justify-content-center">
                     <ul>
                         <li class="box p-4 forecast-img" id = "forecast-top"></li>
                         <li class="box p-8 forecast-img">
-                            <p id="forecast-temp">Current Temperature:</p>
-                            <p id="forecast-humidity">Humidity:</p>
-                            <p id="forecast-wind">Wind Speed:</p>
+                            <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
+                            <h2 id="forecast-temp-input"></h2>
+                            <p class="weather-display-name" id="forecast-humidity" style="display:none">Humidity:</p>
+                            <h2 id="forecast-humidity-input"></h2>
+                            <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
+                            <h2 id="forecast-wind-input"></h2>
                         </li>
                     </ul>
                 </div>
@@ -111,7 +110,6 @@
     </footer>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
