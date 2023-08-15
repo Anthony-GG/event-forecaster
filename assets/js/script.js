@@ -11,39 +11,38 @@ var listArray = $('.list-item')
 var cityInput = $('.input')
 var headerContent = $('.header-content')
 var weatherDisplayTitle = $('.weather-display-name');
+var cityName = cityInput.val()
 
 var currentDay = dayjs().format('YYYY-MM-DD')
 var currentTime = dayjs().format('HH:mm:ss') + 'Z'
 var dateToday = currentDay + "T" + currentTime
 var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
-headerContent.on('click', '.button', function() {
 
-    $('.weather-display-name').css('display', 'block');
-    var cityName = cityInput.val()
-    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
+var cityName = "invalid";
+headerContent.on('click', '.search-button', function() {
+    if (cityInput.val() === "") {
+        return;
+    }
+    cityName = cityInput.val();
+
+    var cityCheck = cityInput.val()
+    localStorage.setItem('cityName', cityCheck)
+    $('.current-view').text(cityCheck)
+
+    ticketmasterCall(cityCheck)
+})
+
+function ticketmasterCall(cityCheck) {
+    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityCheck + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&sort=date,asc&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
-
-    var weatherBoxes = $('.forecast-img')
-    //Empties top of forecast
-    $("#forecast-top").empty()
-
-    console.log(cityName)
-    console.log(dateToday)
-    console.log(dateEnd)
-
-    //Weather API request - START OF WEATHER API CALL
-    console.log(currentDate);
-    console.log(otherDate)
-    getWeatherInfo(cityName, currentDate);
 
     fetch(ticketmasterUrl)
         .then(function(response) {
             return response.json()
         })
         .then(function(data) {
-            console.log(data)
 
             //Grabs the list from the webpage and fills it with content from the API
             for (i = 0; i < listArray.length; i++) {
@@ -60,7 +59,66 @@ headerContent.on('click', '.button', function() {
                 eventsList.children[i].appendChild(p2)
             }
         })
+    }
+
+if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
+    var arrayCheck = JSON.parse(localStorage.getItem("arrayCheck"))
+} else {
+    arrayCheck = []
+}
+
+// Updates a list everytime a city is pinned
+headerContent.on('click', '.pin-button', function() {
+    var dropdownMain = $('.select-options')
+    var cityCheck = localStorage.getItem('cityName')
+    var dropdownOption = $('<option>')
+    
+
+    //Checks the list to see if an option already exists
+    if (arrayCheck.includes(cityCheck) === false) {
+        arrayCheck.push(cityCheck)
+        dropdownOption.text(cityCheck)
+        dropdownMain.append(dropdownOption)
+        localStorage.setItem('arrayCheck', JSON.stringify(arrayCheck))
+    } else {
+        return;
+    }
 })
+
+if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
+    var dropdownCheck = JSON.parse(localStorage.getItem("arrayCheck"))
+
+    dropdownCheck.forEach(function(string) {
+        var dropdownMain = $('.select-options')
+        var dropdownOption = $('<option>')
+        dropdownOption.text(string)
+        dropdownMain.append(dropdownOption)
+    })
+}
+
+//Purpose: When an event is clicked, this will run the getWeatherInfo function to display the info to the screen, grabbing the data from the clicked list item
+//Parameters: event, a click event on any list item located in main content
+//Returns: NONE
+$('.main-content').on( "click", function( event ) {
+    if (cityName != "invalid"){
+        var clickedEvent = $( event.target ).closest( "li" );
+        var clickedEventText = clickedEvent.text().trim();
+        clickedEventText.indexOf("Time:");
+        clickedEventText.lastIndexOf("at");
+        //Pulls date string from event
+        var extractedDate = clickedEventText.substring(clickedEventText.indexOf("Time:"), clickedEventText.lastIndexOf("at"));
+        extractedDate = extractedDate.substr(6);
+    
+        //Converts date on page to dayjs Date item
+        var currentYear = dayjs().year();
+        var selectedDate = dayjs(extractedDate + ' ' + currentYear, 'MMM D YYYY', 'es');
+        //Formats selected date to appropriate format for weather API call
+        selectedDate = selectedDate.format("YYYY-MM-DD");
+    
+        getWeatherInfo(cityName, selectedDate);
+    }
+  });
+
 
 //START OF OPENWEATHER API
 
@@ -70,10 +128,9 @@ var forecast_image = document.getElementById("forecast-top")
 var weatherTemp = document.getElementById("forecast-temp-input")
 var weatherHumid = document.getElementById("forecast-humidity-input")
 var weatherWind = document.getElementById("forecast-wind-input")
+var weatherDate = document.getElementById("forecast-date-input");
 
 var currentDate = dayjs().format("YYYY-MM-DD");
-//Current set to 2023-08-11
-var otherDate = dayjs(new Date(2023, 7, 15)).format("YYYY-MM-DD")
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
@@ -82,6 +139,9 @@ const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
 //RETURNS: NONE
 async function getWeatherInfo(city, date) {
+
+    //Makes titles for each category appear
+    $('.weather-display-name').css('display', 'block');
 
     //API LINK FORMATTING
     var weatherForecastCall = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
@@ -94,20 +154,19 @@ async function getWeatherInfo(city, date) {
         var weather_data = JSON.parse(dataToParse);
 
         //START OF THE FIRST BOX
-        //This section will create an icon link, create the icon, and then append it on the page in place
-        var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
-        let weatherIcon = new Image();
-        weatherIcon.src = icon_link;
-        weatherIcon.style.width = "200px";
 
-        //This section will add the weather information under the icon
-        let weatherStatus = document.createElement("h2");
+        //This section will add the weather information above the icon
+        var weatherStatus = document.getElementById("forecast-status");
         weatherStatus.textContent = weather_data.weather[0].main;
         weatherStatus.style.textAlign = "center";
         weatherStatus.style.fontWeight = "bold";
         weatherStatus.style.fontSize = "28px";
-        forecast_image.append(weatherStatus);
-        weatherStatus.after(weatherIcon);
+
+        // This section will create an icon link, create the icon, and then append it on the page in place
+        var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
+        let weatherIcon = document.getElementById("forecast-icon");
+        weatherIcon.src = icon_link;
+        weatherIcon.style.width = "200px";
 
         //START OF THE SECOND BOX
         //This section will add the weather temperature 
@@ -124,12 +183,15 @@ async function getWeatherInfo(city, date) {
         weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
         weatherWind.style.textAlign = "center";
         weatherWind.style.fontWeight = "bold";
+        //This section will add the weather date
+        weatherDate.textContent = dayjs(date).format('dddd, M/D/YYYY');
+        weatherDate.style.textAlign = "center";
+        weatherDate.style.fontWeight = "bold";   
+        
     } else {
         var data = await fetch(weatherForecastCall);
         var dataToParse = await data.text();
         var weather_data = JSON.parse(dataToParse);
-        console.log(weather_data);
-        console.log("This is a different day!");
 
 
 
@@ -147,25 +209,22 @@ async function getWeatherInfo(city, date) {
             daysWeather.push(day)
             listNum+=8;
         }
-        console.log(daysWeather);
 
         daysWeather.forEach((dayArr) => {
             if(dayArr[1] === requestedDate){
                 //START OF THE FIRST BOX
-                //This section will create an icon link, create the icon, and then append it on the page in place
-                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
-                let weatherIcon = new Image();
-                weatherIcon.src = icon_link;
-                weatherIcon.style.width = "200px";
-
-                //This section will add the weather information under the icon
-                let weatherStatus = document.createElement("h2");
+                //This section will add the weather information above the icon
+                var weatherStatus = document.getElementById("forecast-status");
                 weatherStatus.textContent = dayArr[0].weather[0].main;
                 weatherStatus.style.textAlign = "center";
                 weatherStatus.style.fontWeight = "bold";
                 weatherStatus.style.fontSize = "28px";
-                forecast_image.append(weatherStatus);
-                weatherStatus.after(weatherIcon);
+
+                // This section will create an icon link, create the icon, and then append it on the page in place
+                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+                let weatherIcon = document.getElementById("forecast-icon");
+                weatherIcon.src = icon_link;
+                weatherIcon.style.width = "200px";
 
                 //START OF THE SECOND BOX
                 //This section will add the weather temperature 
@@ -182,6 +241,11 @@ async function getWeatherInfo(city, date) {
                 weatherWind.textContent = Math.round(dayArr[0].wind.speed) + " MPH";
                 weatherWind.style.textAlign = "center";
                 weatherWind.style.fontWeight = "bold";
+
+                //This section will add the weather date
+                weatherDate.textContent = dayjs(requestedDate).format('dddd, M/D/YYYY');
+                weatherDate.style.textAlign = "center";
+                weatherDate.style.fontWeight = "bold";                
             }
           });
     }

@@ -53,6 +53,15 @@ li {
     color: white;
 }
 
+.current-view {
+    display: inline-block;
+}
+
+.pin-header {
+    text-align: center;
+    padding: 8px;
+}
+
 #override-footer {
     background-color: var(--color4);
     color: white;
