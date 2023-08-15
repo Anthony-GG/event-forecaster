@@ -83,10 +83,13 @@
         </div>
         <!-- START OF FORECAST SECTION -->
         <div class="column is-one-quarter">
-            <h2 class="has-text-centered">Forecast</h2>
+            <h2 class="has-text-centered">General Forecast</h2>
             <section class="main-content forecast box is-flex-grow-6 is-justify-content-center">
                     <ul>
-                        <li class="box p-4 forecast-img" id = "forecast-top"></li>
+                        <li class="box p-4 forecast-img" id = "forecast-top">
+                            <h2 id="forecast-status"></h2>
+                            <img id="forecast-icon">
+                        </li>
                         <li class="box p-8 forecast-img">
                             <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
                             <h2 id="forecast-temp-input"></h2>
@@ -94,6 +97,8 @@
                             <h2 id="forecast-humidity-input"></h2>
                             <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
                             <h2 id="forecast-wind-input"></h2>
+                            <p class="weather-display-name" id="forecast-date" style="display:none">Currently Showing:</p>
+                            <h2 id="forecast-date-input"></h2>
                         </li>
                     </ul>
                 </div>
