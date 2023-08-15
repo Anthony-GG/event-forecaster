@@ -54,8 +54,8 @@ headerContent.on('click', '.button', function() {
 //Parameters: event, a click event on any list item located in main content
 //Returns: NONE
 $('.main-content').on( "click", function( event ) {
-    $('.weather-display-name').css('display', 'block');
     if (cityName != "invalid"){
+        $('.weather-display-name').css('display', 'block');
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
         clickedEventText.indexOf("Time:");
