@@ -184,6 +184,11 @@ async function getWeatherInfo(city, date) {
         weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
         weatherWind.style.textAlign = "center";
         weatherWind.style.fontWeight = "bold";
+        //This section will add the weather date
+        weatherDate.textContent = dayjs(date).format('dddd, M/D/YYYY');
+        weatherDate.style.textAlign = "center";
+        weatherDate.style.fontWeight = "bold";   
+        
     } else {
         var data = await fetch(weatherForecastCall);
         var dataToParse = await data.text();
