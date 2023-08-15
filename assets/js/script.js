@@ -20,7 +20,7 @@ var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
 
 var cityName = "invalid";
-headerContent.on('click', '.search-button', function() {
+headerContent.on('click', '.search-button', function(cityCheck, dateToday, dateEnd) {
     if (cityInput.val() === "") {
         return;
     }
