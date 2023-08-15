@@ -24,12 +24,13 @@ headerContent.on('click', '.search-button', function() {
     if (cityInput.val() === "") {
         return;
     }
+    cityName = cityInput.val();
 
     $('.weather-display-name').css('display', 'block');
-    var cityName = cityInput.val()
-    localStorage.setItem('cityName', cityName)
-    $('.current-view').text(cityName)
-    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&sort=date,asc&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
+    var cityCheck = cityInput.val()
+    localStorage.setItem('cityName', cityCheck)
+    $('.current-view').text(cityCheck)
+    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityCheck + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&sort=date,asc&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
 
@@ -61,13 +62,13 @@ headerContent.on('click', '.search-button', function() {
 var arrayCheck = []
 headerContent.on('click', '.pin-button', function() {
     var dropdownMain = $('.select-options')
-    var cityName = localStorage.getItem('cityName')
+    var cityCheck = localStorage.getItem('cityName')
     var dropdownOption = $('<option>')
 
     //Checks the list to see if an option already exists
-    if (arrayCheck.includes(cityName) === false) {
-        arrayCheck.push(cityName)
-        dropdownOption.text(cityName)
+    if (arrayCheck.includes(cityCheck) === false) {
+        arrayCheck.push(cityCheck)
+        dropdownOption.text(cityCheck)
         dropdownMain.append(dropdownOption)
     } else {
         return;
@@ -78,7 +79,9 @@ headerContent.on('click', '.pin-button', function() {
 //Parameters: event, a click event on any list item located in main content
 //Returns: NONE
 $('.main-content').on( "click", function( event ) {
+    console.log(cityName);
     if (cityName != "invalid"){
+        console.log("hi friend");
         $('.weather-display-name').css('display', 'block');
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
@@ -133,13 +136,13 @@ async function getWeatherInfo(city, date) {
 
         //This section will add the weather information above the icon
         var weatherStatus = document.getElementById("forecast-status");
-        weatherStatus.textContent = dayArr[0].weather[0].main;
+        weatherStatus.textContent = weather_data.weather[0].main;
         weatherStatus.style.textAlign = "center";
         weatherStatus.style.fontWeight = "bold";
         weatherStatus.style.fontSize = "28px";
 
         // This section will create an icon link, create the icon, and then append it on the page in place
-        var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+        var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
         let weatherIcon = document.getElementById("forecast-icon");
         weatherIcon.src = icon_link;
         weatherIcon.style.width = "200px";
