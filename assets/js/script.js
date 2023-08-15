@@ -26,7 +26,6 @@ headerContent.on('click', '.search-button', function() {
     }
     cityName = cityInput.val();
 
-    $('.weather-display-name').css('display', 'block');
     var cityCheck = cityInput.val()
     localStorage.setItem('cityName', cityCheck)
     $('.current-view').text(cityCheck)
@@ -102,7 +101,6 @@ if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
 //Returns: NONE
 $('.main-content').on( "click", function( event ) {
     if (cityName != "invalid"){
-        $('.weather-display-name').css('display', 'block');
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
         clickedEventText.indexOf("Time:");
@@ -141,6 +139,9 @@ const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
 //RETURNS: NONE
 async function getWeatherInfo(city, date) {
+
+    //Makes titles for each category appear
+    $('.weather-display-name').css('display', 'block');
 
     //API LINK FORMATTING
     var weatherForecastCall = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
