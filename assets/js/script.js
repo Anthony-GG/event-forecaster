@@ -17,26 +17,24 @@ var currentTime = dayjs().format('HH:mm:ss') + 'Z'
 var dateToday = currentDay + "T" + currentTime
 var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
+var cityName = "invalid";
+
 headerContent.on('click', '.button', function() {
 
     $('.weather-display-name').css('display', 'block');
-    var cityName = cityInput.val()
+    cityName = cityInput.val()
     var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
 
     var weatherBoxes = $('.forecast-img')
-    //Empties top of forecast
-    $("#forecast-top").empty()
 
     console.log(cityName)
-    console.log(dateToday)
-    console.log(dateEnd)
 
-    //Weather API request - START OF WEATHER API CALL
-    console.log(currentDate);
-    console.log(otherDate)
-    getWeatherInfo(cityName, currentDate);
+    // Weather API request - START OF WEATHER API CALL
+    // console.log(currentDate);
+    // console.log(otherDate)
+    // getWeatherInfo(cityName, otherDate);
 
     fetch(ticketmasterUrl)
         .then(function(response) {
@@ -61,6 +59,27 @@ headerContent.on('click', '.button', function() {
             }
         })
 })
+
+$('.main-content').on( "click", function( event ) {
+    if (cityName != "invalid"){
+        var clickedEvent = $( event.target ).closest( "li" );
+        var clickedEventText = clickedEvent.text().trim();
+        clickedEventText.indexOf("Time:");
+        clickedEventText.lastIndexOf("at");
+        //Pulls date string from event
+        var extractedDate = clickedEventText.substring(clickedEventText.indexOf("Time:"), clickedEventText.lastIndexOf("at"));
+        extractedDate = extractedDate.substr(6);
+    
+        //Converts date on page to dayjs Date item
+        var currentYear = dayjs().year();
+        var selectedDate = dayjs(extractedDate + ' ' + currentYear, 'MMM D YYYY', 'es');
+        //Formats selected date to appropriate format for weather API call
+        selectedDate = selectedDate.format("YYYY-MM-DD");
+    
+        getWeatherInfo(cityName, selectedDate);
+    }
+
+  });
 
 //START OF OPENWEATHER API
 
@@ -94,20 +113,19 @@ async function getWeatherInfo(city, date) {
         var weather_data = JSON.parse(dataToParse);
 
         //START OF THE FIRST BOX
+
+        //This section will add the weather information above the icon
+        let weatherStatus = document.getElementById("#forecast-status")
+        weatherStatus.textContent = weather_data.weather[0].main;
+        weatherStatus.style.textAlign = "center";
+        weatherStatus.style.fontWeight = "bold";
+        weatherStatus.style.fontSize = "28px";
+
         //This section will create an icon link, create the icon, and then append it on the page in place
         var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
         let weatherIcon = new Image();
         weatherIcon.src = icon_link;
         weatherIcon.style.width = "200px";
-
-        //This section will add the weather information under the icon
-        let weatherStatus = document.createElement("h2");
-        weatherStatus.textContent = weather_data.weather[0].main;
-        weatherStatus.style.textAlign = "center";
-        weatherStatus.style.fontWeight = "bold";
-        weatherStatus.style.fontSize = "28px";
-        forecast_image.append(weatherStatus);
-        weatherStatus.after(weatherIcon);
 
         //START OF THE SECOND BOX
         //This section will add the weather temperature 
@@ -152,26 +170,26 @@ async function getWeatherInfo(city, date) {
         daysWeather.forEach((dayArr) => {
             if(dayArr[1] === requestedDate){
                 //START OF THE FIRST BOX
-                //This section will create an icon link, create the icon, and then append it on the page in place
-                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
-                let weatherIcon = new Image();
-                weatherIcon.src = icon_link;
-                weatherIcon.style.width = "200px";
-
-                //This section will add the weather information under the icon
-                let weatherStatus = document.createElement("h2");
+                //This section will add the weather information above the icon
+                var weatherStatus = document.getElementById("forecast-status");
+                console.log(weatherStatus)
                 weatherStatus.textContent = dayArr[0].weather[0].main;
                 weatherStatus.style.textAlign = "center";
                 weatherStatus.style.fontWeight = "bold";
                 weatherStatus.style.fontSize = "28px";
-                forecast_image.append(weatherStatus);
-                weatherStatus.after(weatherIcon);
+
+                // This section will create an icon link, create the icon, and then append it on the page in place
+                var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+                let weatherIcon = document.getElementById("forecast-icon");
+                weatherIcon.src = icon_link;
+                weatherIcon.style.width = "200px";
 
                 //START OF THE SECOND BOX
                 //This section will add the weather temperature 
                 weatherTemp.textContent = Math.round(dayArr[0].main.temp) + "\u00B0" + "F";
                 weatherTemp.style.textAlign = "center";
                 weatherTemp.style.fontWeight = "bold";
+                console.log(weatherTemp)
 
                 //This section will add the weather humidity 
                 weatherHumid.textContent = Math.round(dayArr[0].main.humidity) + "%";
