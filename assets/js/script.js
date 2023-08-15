@@ -20,7 +20,7 @@ var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
 
 var cityName = "invalid";
-headerContent.on('click', '.search-button', function(cityCheck, dateToday, dateEnd) {
+headerContent.on('click', '.search-button', function() {
     if (cityInput.val() === "") {
         return;
     }
@@ -30,6 +30,11 @@ headerContent.on('click', '.search-button', function(cityCheck, dateToday, dateE
     var cityCheck = cityInput.val()
     localStorage.setItem('cityName', cityCheck)
     $('.current-view').text(cityCheck)
+
+    ticketmasterCall(cityCheck)
+})
+
+function ticketmasterCall(cityCheck) {
     var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityCheck + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&sort=date,asc&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
@@ -55,25 +60,42 @@ headerContent.on('click', '.search-button', function(cityCheck, dateToday, dateE
                 eventsList.children[i].appendChild(p2)
             }
         })
-})
+    }
 
+if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
+    var arrayCheck = JSON.parse(localStorage.getItem("arrayCheck"))
+} else {
+    arrayCheck = []
+}
 
 // Updates a list everytime a city is pinned
-var arrayCheck = []
 headerContent.on('click', '.pin-button', function() {
     var dropdownMain = $('.select-options')
     var cityCheck = localStorage.getItem('cityName')
     var dropdownOption = $('<option>')
+    
 
     //Checks the list to see if an option already exists
     if (arrayCheck.includes(cityCheck) === false) {
         arrayCheck.push(cityCheck)
         dropdownOption.text(cityCheck)
         dropdownMain.append(dropdownOption)
+        localStorage.setItem('arrayCheck', JSON.stringify(arrayCheck))
     } else {
         return;
     }
 })
+
+if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
+    var dropdownCheck = JSON.parse(localStorage.getItem("arrayCheck"))
+
+    dropdownCheck.forEach(function(string) {
+        var dropdownMain = $('.select-options')
+        var dropdownOption = $('<option>')
+        dropdownOption.text(string)
+        dropdownMain.append(dropdownOption)
+    })
+}
 
 //Purpose: When an event is clicked, this will run the getWeatherInfo function to display the info to the screen, grabbing the data from the clicked list item
 //Parameters: event, a click event on any list item located in main content
