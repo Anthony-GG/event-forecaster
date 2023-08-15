@@ -82,10 +82,9 @@ var forecast_image = document.getElementById("forecast-top")
 var weatherTemp = document.getElementById("forecast-temp-input")
 var weatherHumid = document.getElementById("forecast-humidity-input")
 var weatherWind = document.getElementById("forecast-wind-input")
+var weatherDate = document.getElementById("forecast-date-input");
 
 var currentDate = dayjs().format("YYYY-MM-DD");
-//Current set to 2023-08-11
-var otherDate = dayjs(new Date(2023, 7, 15)).format("YYYY-MM-DD")
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
@@ -188,6 +187,11 @@ async function getWeatherInfo(city, date) {
                 weatherWind.textContent = Math.round(dayArr[0].wind.speed) + " MPH";
                 weatherWind.style.textAlign = "center";
                 weatherWind.style.fontWeight = "bold";
+
+                //This section will add the weather date
+                weatherDate.textContent = dayjs(requestedDate).format('dddd, M/D/YYYY');
+                weatherDate.style.textAlign = "center";
+                weatherDate.style.fontWeight = "bold";                
             }
           });
     }
