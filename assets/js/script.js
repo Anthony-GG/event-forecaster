@@ -27,19 +27,11 @@ headerContent.on('click', '.button', function() {
 
     var weatherBoxes = $('.forecast-img')
 
-    console.log(cityName)
-
-    // Weather API request - START OF WEATHER API CALL
-    // console.log(currentDate);
-    // console.log(otherDate)
-    // getWeatherInfo(cityName, otherDate);
-
     fetch(ticketmasterUrl)
         .then(function(response) {
             return response.json()
         })
         .then(function(data) {
-            console.log(data)
 
             //Grabs the list from the webpage and fills it with content from the API
             for (i = 0; i < listArray.length; i++) {
@@ -116,15 +108,15 @@ async function getWeatherInfo(city, date) {
         //START OF THE FIRST BOX
 
         //This section will add the weather information above the icon
-        let weatherStatus = document.getElementById("#forecast-status")
-        weatherStatus.textContent = weather_data.weather[0].main;
+        var weatherStatus = document.getElementById("forecast-status");
+        weatherStatus.textContent = dayArr[0].weather[0].main;
         weatherStatus.style.textAlign = "center";
         weatherStatus.style.fontWeight = "bold";
         weatherStatus.style.fontSize = "28px";
 
-        //This section will create an icon link, create the icon, and then append it on the page in place
-        var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
-        let weatherIcon = new Image();
+        // This section will create an icon link, create the icon, and then append it on the page in place
+        var icon_link = "http://openweathermap.org/img/w/" + dayArr[0].weather[0].icon + ".png";
+        let weatherIcon = document.getElementById("forecast-icon");
         weatherIcon.src = icon_link;
         weatherIcon.style.width = "200px";
 
@@ -147,8 +139,6 @@ async function getWeatherInfo(city, date) {
         var data = await fetch(weatherForecastCall);
         var dataToParse = await data.text();
         var weather_data = JSON.parse(dataToParse);
-        console.log(weather_data);
-        console.log("This is a different day!");
 
 
 
@@ -166,14 +156,12 @@ async function getWeatherInfo(city, date) {
             daysWeather.push(day)
             listNum+=8;
         }
-        console.log(daysWeather);
 
         daysWeather.forEach((dayArr) => {
             if(dayArr[1] === requestedDate){
                 //START OF THE FIRST BOX
                 //This section will add the weather information above the icon
                 var weatherStatus = document.getElementById("forecast-status");
-                console.log(weatherStatus)
                 weatherStatus.textContent = dayArr[0].weather[0].main;
                 weatherStatus.style.textAlign = "center";
                 weatherStatus.style.fontWeight = "bold";
@@ -190,7 +178,6 @@ async function getWeatherInfo(city, date) {
                 weatherTemp.textContent = Math.round(dayArr[0].main.temp) + "\u00B0" + "F";
                 weatherTemp.style.textAlign = "center";
                 weatherTemp.style.fontWeight = "bold";
-                console.log(weatherTemp)
 
                 //This section will add the weather humidity 
                 weatherHumid.textContent = Math.round(dayArr[0].main.humidity) + "%";
