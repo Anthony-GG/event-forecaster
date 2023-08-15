@@ -101,9 +101,7 @@ if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
 //Parameters: event, a click event on any list item located in main content
 //Returns: NONE
 $('.main-content').on( "click", function( event ) {
-    console.log(cityName);
     if (cityName != "invalid"){
-        console.log("hi friend");
         $('.weather-display-name').css('display', 'block');
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
