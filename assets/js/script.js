@@ -20,8 +20,6 @@ var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 var cityName = "invalid";
 
 headerContent.on('click', '.button', function() {
-
-    $('.weather-display-name').css('display', 'block');
     cityName = cityInput.val()
     var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
@@ -60,7 +58,11 @@ headerContent.on('click', '.button', function() {
         })
 })
 
+//Purpose: When an event is clicked, this will run the getWeatherInfo function to display the info to the screen, grabbing the data from the clicked list item
+//Parameters: event, a click event on any list item located in main content
+//Returns: NONE
 $('.main-content').on( "click", function( event ) {
+    $('.weather-display-name').css('display', 'block');
     if (cityName != "invalid"){
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
@@ -78,7 +80,6 @@ $('.main-content').on( "click", function( event ) {
     
         getWeatherInfo(cityName, selectedDate);
     }
-
   });
 
 //START OF OPENWEATHER API
