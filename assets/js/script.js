@@ -26,7 +26,6 @@ headerContent.on('click', '.search-button', function() {
     }
     cityName = cityInput.val();
 
-    $('.weather-display-name').css('display', 'block');
     var cityCheck = cityInput.val()
     localStorage.setItem('cityName', cityCheck)
     $('.current-view').text(cityCheck)
@@ -101,10 +100,7 @@ if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
 //Parameters: event, a click event on any list item located in main content
 //Returns: NONE
 $('.main-content').on( "click", function( event ) {
-    console.log(cityName);
     if (cityName != "invalid"){
-        console.log("hi friend");
-        $('.weather-display-name').css('display', 'block');
         var clickedEvent = $( event.target ).closest( "li" );
         var clickedEventText = clickedEvent.text().trim();
         clickedEventText.indexOf("Time:");
@@ -143,6 +139,9 @@ const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 //PARAMETERS: city: a string which is name of city, date: a string, date weather request
 //RETURNS: NONE
 async function getWeatherInfo(city, date) {
+
+    //Makes titles for each category appear
+    $('.weather-display-name').css('display', 'block');
 
     //API LINK FORMATTING
     var weatherForecastCall = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
@@ -184,6 +183,11 @@ async function getWeatherInfo(city, date) {
         weatherWind.textContent = Math.round(weather_data.wind.speed) + " MPH";
         weatherWind.style.textAlign = "center";
         weatherWind.style.fontWeight = "bold";
+        //This section will add the weather date
+        weatherDate.textContent = dayjs(date).format('dddd, M/D/YYYY');
+        weatherDate.style.textAlign = "center";
+        weatherDate.style.fontWeight = "bold";   
+        
     } else {
         var data = await fetch(weatherForecastCall);
         var dataToParse = await data.text();
