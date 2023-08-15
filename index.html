@@ -20,7 +20,13 @@
     </header>
     <section class="header section columns" id="override-header">
         <section class="header-content logo box column is-one-quarter">
-            <p>Yeah, yeah. Placeholder</p>
+            <div class="select is-focused is-hovered">
+                <select class="select-options">
+                  <option>Select a Pin</option>
+                </select>
+                <h2 class="pin-header">Current City:</h2>
+                <p class="pin-header current-view"></p>
+              </div>
         </section>
         <section class="header-content search-field box column">
             <div>
@@ -30,7 +36,8 @@
                         <input class="input" type="name" placeholder="City Name...">
                     </div>
                 </div>
-                <button class="button is-warning is-rounded is-focused">Search</button>
+                <button class="button search-button is-warning is-rounded is-focused">Search</button>
+                <button class="button pin-button is-danger is-rounded is-focused">Pin City</button>
             </div>
         </section>
         <section class="header-content logo box column is-one-fifth">

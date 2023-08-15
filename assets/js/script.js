@@ -11,27 +11,29 @@ var listArray = $('.list-item')
 var cityInput = $('.input')
 var headerContent = $('.header-content')
 var weatherDisplayTitle = $('.weather-display-name');
+var cityName = cityInput.val()
 
 var currentDay = dayjs().format('YYYY-MM-DD')
 var currentTime = dayjs().format('HH:mm:ss') + 'Z'
 var dateToday = currentDay + "T" + currentTime
 var dateEnd = test.add(5, 'day').format('YYYY-MM-DD') + 'T' + currentTime
 
-headerContent.on('click', '.button', function() {
+headerContent.on('click', '.search-button', function() {
+    if (cityInput.val() === "") {
+        return;
+    }
 
     $('.weather-display-name').css('display', 'block');
     var cityName = cityInput.val()
-    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
+    localStorage.setItem('cityName', cityName)
+    $('.current-view').text(cityName)
+    var ticketmasterUrl =  "https://app.ticketmaster.com//discovery/v2/events.json?city=" + cityName + "&startDateTime=" + dateToday + "&endDateTime=" + dateEnd + "&sort=date,asc&apikey=7JuSLn48lLbD7EjJgIc6tqFSh9xt4B9y"
     
     cityInput.val('')
 
     var weatherBoxes = $('.forecast-img')
     //Empties top of forecast
     $("#forecast-top").empty()
-
-    console.log(cityName)
-    console.log(dateToday)
-    console.log(dateEnd)
 
     //Weather API request - START OF WEATHER API CALL
     console.log(currentDate);
@@ -60,6 +62,23 @@ headerContent.on('click', '.button', function() {
                 eventsList.children[i].appendChild(p2)
             }
         })
+})
+
+// Updates a list everytime a city is pinned
+var arrayCheck = []
+headerContent.on('click', '.pin-button', function() {
+    var dropdownMain = $('.select-options')
+    var cityName = localStorage.getItem('cityName')
+    var dropdownOption = $('<option>')
+
+    //Checks the list to see if an option already exists
+    if (arrayCheck.includes(cityName) === false) {
+        arrayCheck.push(cityName)
+        dropdownOption.text(cityName)
+        dropdownMain.append(dropdownOption)
+    } else {
+        return;
+    }
 })
 
 //START OF OPENWEATHER API
