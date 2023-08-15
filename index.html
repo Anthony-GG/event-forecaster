@@ -10,8 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
     <link rel="stylesheet" href="./assets/css/style.css">
-   
+
 </head>
 
 <body>
@@ -33,51 +34,126 @@
                 <button class="button is-warning is-rounded is-focused">Search</button>
             </div>
         </section>
-        <section class="header-content logo box column is-one-fifth">
-        </section>
     </section>
 
     <main class="main-body section columns" id="main-body">
         <div class="column">
             <h2 class="has-text-centered">Events List</h2>
             <section class="main-content events box">
-
-                    <ul class="events-list" id="events-list">
-                        <li class="box list-item" id="list-item">
-                            <h3></h3>
-                            <p></p>
-                            <p></p>
-                        </li>
-                        <li class="box list-item" id="list-item">
-                            <h3></h3>
-                            <p></p>
-                            <p></p>
-                        </li>
-                        <li class="box list-item" id="list-item">
-                            <h3></h3>
-                            <p></p>
-                            <p></p>
-                        </li>
-                        <li class="box list-item" id="list-item">
-                            <h3></h3>
-                            <p></p>
-                            <p></p>
-                        </li>
-                    </ul>
-                    <nav class="pagination" role="navigation" aria-label="pagination">
-                    <a class="pagination-previous is-disabled" title="This is the first page">Previous</a>
-                    <a class="pagination-next">Next page</a>
-                    <ul class="pagination-list">
-                      <li>
-                        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-                      </li>
-                      <li>
-                        <a class="pagination-link" aria-label="Goto page 2">2</a>
-                      </li>
-                      <li>
-                        <a class="pagination-link" aria-label="Goto page 3">3</a>
-                      </li>
-                    </ul>
+                <ul class="events-list" id="events-list" data-current-page="1">
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                    <li class="box list-item" id="list-item">
+                        <h3></h3>
+                        <p></p>
+                        <p></p>
+                    </li>
+                </ul>
+                <nav class="pagination-container">
+                    <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
+                      &lt;
+                    </button>
+                
+                    <div id="pagination-numbers">
+                
+                    </div>
+                
+                    <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
+                      &gt;
+                    </button>
                   </nav>
             </section>
         </div>
@@ -85,19 +161,19 @@
         <div class="column is-one-quarter">
             <h2 class="has-text-centered">Forecast</h2>
             <section class="main-content forecast box is-flex-grow-6 is-justify-content-center">
-                    <ul>
-                        <li class="box p-4 forecast-img" id = "forecast-top"></li>
-                        <li class="box p-8 forecast-img">
-                            <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
-                            <h2 id="forecast-temp-input"></h2>
-                            <p class="weather-display-name" id="forecast-humidity" style="display:none">Humidity:</p>
-                            <h2 id="forecast-humidity-input"></h2>
-                            <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
-                            <h2 id="forecast-wind-input"></h2>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                <ul>
+                    <li class="box p-4 forecast-img" id="forecast-top"></li>
+                    <li class="box p-8 forecast-img">
+                        <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
+                        <h2 id="forecast-temp-input"></h2>
+                        <p class="weather-display-name" id="forecast-humidity" style="display:none">Humidity:</p>
+                        <h2 id="forecast-humidity-input"></h2>
+                        <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
+                        <h2 id="forecast-wind-input"></h2>
+                    </li>
+                </ul>
+        </div>
+        </section>
         </div>
     </main>
 
@@ -109,13 +185,11 @@
         </div>
     </footer>
 
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 
 
     <script src="./assets/js/script.js"></script>
