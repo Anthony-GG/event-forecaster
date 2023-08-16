@@ -97,9 +97,9 @@ if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
 }
 // Add event listener for pinned cities dropdown menu changes
 $('.select-options').on('change',function(){
-  var selectedCity = this.value;
-  ticketmasterCall(selectedCity);
-  $('.current-view').text(selectedCity)
+  cityName = this.value;
+  ticketmasterCall(cityName);
+  $('.current-view').text(cityName)
 });
 
 //Purpose: When an event is clicked, this will run the getWeatherInfo function to display the info to the screen, grabbing the data from the clicked list item
