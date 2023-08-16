@@ -18,10 +18,10 @@
 
 ## Installation and Usage
 
-<p>Simply use the download all of the files provided and open the index.html in your file viewer of choice!
-To look at the source code, open it, the CSS file and the Javascript file in a text file editor of choice!
+<p>Simply download all of the files provided and open the index.html in your file viewer of choice!
+To look at the source code, open it, the CSS file, and the Javascript file in a text file editor of choice!
 
-If your plan is to just take a look at functionality, feel free to use the link to the deployed page given below!</p>
+If you plan to just take a look at functionality, feel free to use the link to the deployed page given below!</p>
 
 
 ## Mockup:
