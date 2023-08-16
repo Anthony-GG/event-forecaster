@@ -36,7 +36,9 @@ If you plan to just take a look at functionality, feel free to use the link to t
 
 * Extended event list (increased from the current standard list being 20 of the most upcoming events in a given city)
 
-* Adding action to clicking on an event that will show user more information about the event (ex. ticket links, location on map, etc.)
+* Adding action to clicking on an event that will show the user more information about the event (ex. ticket links, location on a map, etc.)
+
+* Adding an indicator to events when they are hovered to easily determine which event you are clicking on
 
 ```
 
