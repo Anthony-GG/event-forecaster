@@ -99,6 +99,7 @@ if (JSON.parse(localStorage.getItem("arrayCheck")) != null) {
 $('.select-options').on('change',function(){
   var selectedCity = this.value;
   ticketmasterCall(selectedCity);
+  $('.current-view').text(selectedCity)
 });
 
 //Purpose: When an event is clicked, this will run the getWeatherInfo function to display the info to the screen, grabbing the data from the clicked list item
