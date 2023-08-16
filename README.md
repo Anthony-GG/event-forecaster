@@ -25,7 +25,7 @@ If you plan to just take a look at functionality, feel free to use the link to t
 
 
 ## Mockup:
-<h3>The following images shows the web application's appearance and functionality:</h3>
+<h3>The following image shows the web application's appearance and functionality:</h3>
 
 <img src="./assets/images/event-forecaster-main.png" width="1200px" alt="home menu of webpage with Cleveland as the selected city showing 4 upcoming events on the left and the weather for August 16th on the right">
 
