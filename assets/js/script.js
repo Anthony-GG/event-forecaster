@@ -261,6 +261,7 @@ async function getWeatherInfo(city, date) {
 
 //Pagination Section
 
+
 const paginationNumbers = document.getElementById("pagination-numbers");
 const paginatedList = document.getElementById("events-list");
 const listItems = paginatedList.querySelectorAll("li");
