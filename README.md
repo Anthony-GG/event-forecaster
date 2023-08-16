@@ -2,19 +2,19 @@
 
 ## Description
 
-1. In this project, our main goal was to create an event forecaster, a program that would pull data from both the Ticketmaster API and OpenWeather API to display a list of events, that once clicked on, will give general weather information for a given day!
+1. In this project, our primary goal was to create an event forecaster, a program that would pull data from both the Ticketmaster API and OpenWeather API to display a list of events, that once clicked on, will give general weather information for a given day!
 
 2. Dates for this project were selected and formatted using DayJS!
 
 3. A big focus of this project was combining two server-side APIS, which I believe we accomplished relatively seamlessly!
                                                                        
-4. We decided to use Bulma for our CSS Framework and it allowed for us to impliment easy to use formatting, dropdowns, boxes and pagination!
+4. We decided to use Bulma for our CSS Framework and it allowed us to implement easy-to-use formatting, dropdowns, boxes, and pagination!
 
-5. For the OpenWeather API, we ended up having to use two seperate API call links and then using internal logic to determine which path the weather would go! (Current day on one path, any day in the future on the other.)
+5. For the OpenWeather API, we ended up having to use two separate API call links and then using internal logic to determine which path the weather would go! (Current day on one path, any day in the future on the other.)
 
-6. For the Tickermater API, we used global variables for the different dates to setup the timeframe for the call, and then would append the items to the list on the page using JQuery DOM traversal.
+6. For the Tickermater Discovery API, we used global variables for the different dates to set up the timeframe for the call and then would append the items to the list on the page using JQuery DOM traversal.
 
-7. This project for all of us was the first collaberative coding effort, so it was a fantastic learning experience for working in a team, merge conflicts and just overall understanding GitHub's group functionality!
+7. This project for all of us was the first collaborative coding effort, so it was a fantastic learning experience for working in a team, merging conflicts and just overall understanding GitHub's group functionality!
 
 ## Installation and Usage
 
@@ -59,7 +59,7 @@ If your plan is to just take a look at functionality, feel free to use the link 
  <br>
  <br>
  <h3>Server-side APIs used within the project:</h3>
- <i>Ticketmaster</i><br><i>OpenWeather</i> 
+ <i>Ticketmaster Discovery</i><br><i>OpenWeather</i> 
  <br>
  <br>
  <h3>Lesson provided by:</h3>
