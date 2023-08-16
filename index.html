@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
+
     <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
@@ -21,13 +21,13 @@
     </header>
     <section class="header section columns" id="override-header">
         <section class="header-content logo box column is-one-quarter">
+                <h2 class="pin-header">Current City:</h2>
+                <p class="pin-header current-view has-text-centered"></p><br>
             <div class="select is-focused is-hovered">
                 <select class="select-options">
-                  <option>Select a Pin</option>
+                    <option>Select a Pin</option>
                 </select>
-                <h2 class="pin-header">Current City:</h2>
-                <p class="pin-header current-view"></p>
-              </div>
+            </div>
         </section>
         <section class="header-content search-field box column">
             <div>
@@ -44,7 +44,7 @@
     </section>
 
     <main class="main-body section columns" id="main-body">
-        <div class="column">
+        <div class="column numbers" id="main-box">
             <h2 class="has-text-centered">Events List</h2>
             <section class="main-content events box">
                 <ul class="events-list" id="events-list" data-current-page="1">
@@ -149,50 +149,51 @@
                         <p></p>
                     </li>
                 </ul>
-                <nav class="pagination-container">
-                    <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
-                      &lt;
-                    </button>
-                
-                    <div id="pagination-numbers">
-                
-                    </div>
-                
-                    <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
-                      &gt;
-                    </button>
-                  </nav>
+
             </section>
+            <nav class="pagination-container">
+                <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
+                    &lt;
+                </button>
+
+                <div id="pagination-numbers">
+
+                </div>
+
+                <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
+                    &gt;
+                </button>
+            </nav>
         </div>
         <!-- START OF FORECAST SECTION -->
         <div class="column is-one-quarter">
             <h2 class="has-text-centered">General Forecast</h2>
             <section class="main-content forecast box is-flex-grow-6 is-justify-content-center">
-                    <ul>
-                        <li class="box p-4 forecast-img" id = "forecast-top">
-                            <h2 id="forecast-status"></h2>
-                            <img id="forecast-icon">
-                        </li>
-                        <li class="box p-8 forecast-img">
-                            <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
-                            <h2 id="forecast-temp-input"></h2>
-                            <p class="weather-display-name" id="forecast-humidity" style="display:none">Humidity:</p>
-                            <h2 id="forecast-humidity-input"></h2>
-                            <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
-                            <h2 id="forecast-wind-input"></h2>
-                            <p class="weather-display-name" id="forecast-date" style="display:none">Currently Showing:</p>
-                            <h2 id="forecast-date-input"></h2>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+                <ul>
+                    <li class="box p-4 forecast-img" id="forecast-top">
+                        <h2 id="forecast-status"></h2>
+                        <img id="forecast-icon">
+                    </li>
+                    <li class="box p-8 forecast-img">
+                        <p class="weather-display-name" id="forecast-temp" style="display:none">Temperature:</p>
+                        <h2 id="forecast-temp-input"></h2>
+                        <p class="weather-display-name" id="forecast-humidity" style="display:none">Humidity:</p>
+                        <h2 id="forecast-humidity-input"></h2>
+                        <p class="weather-display-name" id="forecast-wind" style="display:none">Wind Speed:</p>
+                        <h2 id="forecast-wind-input"></h2>
+                        <p class="weather-display-name" id="forecast-date" style="display:none">Currently Showing:</p>
+                        <h2 id="forecast-date-input"></h2>
+                    </li>
+                </ul>
+        </div>
+        </section>
         </div>
     </main>
 
     <footer class="footer" id="override-footer">
         <div class="content has-text-centered">
             <p>
-                This is the Footer
+                &#169 Team Car RamRod 2023 &#128663;
             </p>
         </div>
     </footer>
